@@ -50,7 +50,15 @@ class DetailComponent extends React.Component {
       socket.emit("filename", {filename: location},);
       // socket.on("text", data => this.setState({textFile: data}));
       socket.on("image", (image, buffer) => {
-        document.getElementById('img').src = 'data:image/png;base64,'+image.buffer;
+        document.getElementById('img').src = 'data:image/jpg;base64,'+image.buffer;
+      });
+      socket.on("text", (data) => {
+
+          var txt = data.toString('utf8');
+          console.log(txt);
+          document.getElementById('info').innerHTML = txt;
+
+
       });
     });
   }
@@ -93,9 +101,9 @@ class DetailComponent extends React.Component {
                     />
             </div>
             <div class="col-lg-4" > 
-              <p>Traffic: 😡</p>
-              <p>LAT: 37.9310561</p>
-              <p>LON: -122.3459139</p>
+              <p id='info'>Traffic: 😡</p>
+              {/* <p id='lat'>LAT: 37.9310561</p>
+              <p id='long'>LON: -122.3459139</p> */}
             </div>
         </div>        
           
