@@ -25,9 +25,11 @@ class DetailComponent extends React.Component {
   };
 
   constructor(props) {
+
     super(props);
 
     this.state = {
+      file: -1,
       response: false,
       endpoint: server + ":" + port
     };
@@ -52,11 +54,6 @@ class DetailComponent extends React.Component {
   render() {
 
     const {response, imgFile} = this.state;
-
-    var file1 = 'http://www.dot.ca.gov/d4/d4cameras/ct-cam-pop-E580_JEO_Grand.html';
-    var file2 = 'http://www.dot.ca.gov/d4/d4cameras/ct-cam-pop-E580_Lower_Deck_Pier_16.html';
-    var file3 = 'http://www.dot.ca.gov/d4/d4cameras/ct-cam-pop-S101_at_Airport_Bl.html';
-    var file4 = 'http://www.dot.ca.gov/d4/d4cameras/Wowza-Camera-Popup.html';
     
     const center = [37.9310561, -122.3459139]; // TODO
 

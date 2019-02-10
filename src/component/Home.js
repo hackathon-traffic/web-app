@@ -1,6 +1,11 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import {NavLink, Redirect} from "react-router-dom";
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+
+import TopBar from './Topbar';
+
+
 
 import '../App.css';
 
@@ -29,39 +34,37 @@ class HomeComponent extends React.Component {
     
     return (
       <div className="App">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-6 border" onclick="window.location='https://google.com';">
-                <a href = 'google.com'></a>
-                <div class="thumbnail">
-                  <iframe class="hello" scrolling="no" src={file1}></iframe>
-                  <center><NavLink to="/detail?file=location1">About</NavLink></center>
-                </div>
+        <TopBar />
+        <MDBContainer style={{ marginTop: '50px' }}>
+          <MDBRow>
+            <MDBCol><div className="thumbnail" >
+              <iframe title='video1' className="hello" scrolling="no" src={file1}></iframe>
+              <center><NavLink className=" btn btn-secondary m-2" to="/detail?file=location1">About</NavLink></center>
+            </div></MDBCol>
+            <MDBCol>
+              <div class="thumbnail">
+                <iframe title='video2' className="hello" scrolling="no" src={file2}></iframe>
+                <center><NavLink className=" btn btn-secondary m-2" to="/detail?file=location2">About</NavLink></center>
               </div>
-              <div class="col-lg-6">
-                <div class="thumbnail">
-                  <iframe class="hello" scrolling="no" src={file2}></iframe>
-                  <center><NavLink to="/detail?file=location2">About</NavLink></center>
-                </div>
+            </MDBCol>
+          </MDBRow>
+          <MDBRow>
+            <MDBCol>
+              <div class="thumbnail">
+                <iframe title='video3' className="hello" scrolling="no" src={file3}></iframe>
+                <center><NavLink className=" btn btn-secondary m-2" to="/detail?file=location3">About</NavLink></center>
               </div>
-            </div>
-            <div class="row">
-  
-              <div class="col-lg-6 border">
-                <div class="thumbnail">
-                <iframe class="hello" scrolling="no" src={file3}></iframe>
-                <center><NavLink to="/detail?file=location3">About</NavLink></center>
-                </div>
+            </MDBCol>
+            <MDBCol>
+              <div class="thumbnail">
+                <iframe title='video2' className="hello" scrolling="no" src={file4}></iframe>
+                <center><NavLink className=" btn btn-secondary m-2" to="/detail?file=location4">About</NavLink></center>
               </div>
-              <div class="col-lg-6">
-                <div class="thumbnail">
-                  <iframe class="hello" scrolling="no" src={file4}></iframe>
-                  <center><NavLink to="/detail?file=location4">About</NavLink></center>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+
+      </div>
     );
   }
 }
