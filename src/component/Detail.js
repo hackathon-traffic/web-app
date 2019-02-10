@@ -8,9 +8,14 @@ import Marker from './Marker';
 const server = "http://127.0.0.1";
 const port = "8080";
 
-
-const Detail = ({match}) => {
-  console.log(match.params.file);
+const getUrlVars = () => {
+  var vars={};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+          vars[key] = value;
+      });
+      return vars;
+}
+const Detail = () => {
   return (
     <div>
       <DetailComponent/>
@@ -37,17 +42,17 @@ class DetailComponent extends React.Component {
   }
 
   componentDidMount() {
-
+    var location = getUrlVars().file;
+    console.log(location);
     const{ endpoint } = this.state;
     const socket = socketIOClient(endpoint);
     socket.on('connect', function(data) {
-      socket.emit("filename", {filename: "location1"},);
+      socket.emit("filename", {filename: location},);
       // socket.on("text", data => this.setState({textFile: data}));
       socket.on("image", (image, buffer) => {
         document.getElementById('img').src = 'data:image/png;base64,'+image.buffer;
       });
     });
-
   }
 
 
