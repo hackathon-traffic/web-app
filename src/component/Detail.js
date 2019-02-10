@@ -3,7 +3,8 @@ import {withRouter} from 'react-router';
 import socketIOClient from 'socket.io-client';
 
 
-const Detail = () => {
+const Detail = ({match}) => {
+  console.log(match.params.file);
   return (
     <div>
       <DetailComponent/>
@@ -36,7 +37,7 @@ class DetailComponent extends React.Component {
     const{ endpoint } = this.state;
     const socket = socketIOClient(endpoint);
     socket.on('connect', function(data) {
-      socket.emit("filename", {filename: "abcd.txt"},);
+      socket.emit("filename", {filename: "location1"},);
       // socket.on("text", data => this.setState({textFile: data}));
       socket.on("image", (image, buffer) => {
         // document.getElementById("HI").innerHTML = data;
