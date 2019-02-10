@@ -58,7 +58,9 @@ class DetailComponent extends React.Component {
     var file3 = 'http://www.dot.ca.gov/d4/d4cameras/ct-cam-pop-S101_at_Airport_Bl.html';
     var file4 = 'http://www.dot.ca.gov/d4/d4cameras/Wowza-Camera-Popup.html';
     
-    const center = [37.9310561, -122.3459139];
+    const center = [37.9310561, -122.3459139]; // TODO
+
+
 
     return (
       <div class="col-lg-12 border" onclick="window.location='https://google.com';">
@@ -76,10 +78,16 @@ class DetailComponent extends React.Component {
                 >
                 
                 </GoogleMapReact>
+                
                 <Marker
                       text={"😉😌😘"}
                       lat={37.9310561}
                       lng={-122.3459139}
+                    />
+                                   <Marker
+                      text={"😉😌😘"}
+                      lat={37.931057}
+                      lng={-122.345915}
                     />
             </div>
             <div class="col-lg-4" > 
