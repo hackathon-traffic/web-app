@@ -11,7 +11,6 @@ import '../App.css';
 
 
 const Home = () => {
-  
   return (
     <div>
       <HomeComponent/>
