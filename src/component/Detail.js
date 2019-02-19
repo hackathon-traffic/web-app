@@ -5,7 +5,7 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import LocationList from './LocationList';
 
-const server = "http://127.0.0.1";
+const server = "http://35.185.199.139";
 const port = "8080";
 
 const getUrlVars = () => {
