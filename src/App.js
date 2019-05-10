@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import {BrowserRouter, Route} from 'react-router-dom';
-import Home from './component/Home';
-import Detail from './component/Detail';
+import Home from './pages/home/Home';
+import Detail from './pages/detail/Detail';
 
 
 import './App.css';
