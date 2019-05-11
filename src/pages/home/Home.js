@@ -20,7 +20,7 @@ const Home = () => {
 class HomeComponent extends React.Component {
 
   render() {
-    var file1 = 'http://www.dot.ca.gov/d4/d4cameras/ct-cam-pop-E580_JEO_Grand.html';
+    var file1 = 'http://www.dot.ca.gov/d4/d4cameras/ct-cam-pop-E580_at_High_St.html';
     // var file2 = 'rtmp://wzmedia.dot.ca.gov:1935/D4/E580_Lower_Deck_Pier_16.stream';
     var file2 = 'http://www.dot.ca.gov/d4/d4cameras/ct-cam-pop-E580_Lower_Deck_Pier_16.html';
     // var file3 = 'rtmp://wzmedia.dot.ca.gov:1935/D4/S101_at_Airport_Bl.stream';

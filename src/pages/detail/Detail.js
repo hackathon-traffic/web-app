@@ -8,37 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-const fs = require('fs');
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
-  },
-});
-
-let id = 0;
-function createData(name, calories, fat) {
-  id += 1;
-  return { id, name, calories, fat };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0),
-  createData('Ice cream sandwich', 237, 9.0),
-  createData('Eclair', 262, 16.0),
-  createData('Cupcake', 305, 3.7),
-  createData('Gingerbread', 356, 16.0),
-];
-
-// const admin = require('firebase-admin');
-// var storageRef = admin.storage().ref();
-
-// import Marker from '../../component/Marker';
+import TopBar from '../../component/Topbar';
 
 const server = "http://35.185.199.139";
 // const server = "http://localhost"
@@ -63,7 +33,6 @@ const Detail = () => {
 
 class DetailComponent extends React.Component {
 
-
   constructor(props) {
 
     super(props);
@@ -78,10 +47,11 @@ class DetailComponent extends React.Component {
   }
 
 
-  componentDidMount() {
+  componentDidMount(event) {
     var location = getUrlVars().file;
     console.log(location);
     const{ endpoint } = this.state;
+    var component = this;
     socket = socketIOClient(endpoint);
     socket.on('connect', function(data) {
       socket.emit("filename", {filename: location},);
@@ -95,38 +65,30 @@ class DetailComponent extends React.Component {
 
       });
       socket.on('json', (data) => {
-        if(document != null && document.getElementById('info') != null) {
-          console.log(data);
-          document.getElementById('info').innerHTML = data;
-
+        if(document != null && document.getElementById('img') != null) {  
+          var image_json = JSON.parse(data);
           var array = [];
           image_json.detections.map(function(item, i) {
             item.name = "Car " + i;
             item.id = i;
             array.push(item);
           });
-          this.setState({
+          component.setState({
             detections: array
           });
         }
-
+        // console.log(data);
       });
-    });
+      // socket.on('json', this.handleData);
 
-    //For now use sample image
-    document.getElementById('img').src = require('./sample/img.jpg');
-    var json = '{"detections": [{"screen_x": 499.6688537597656, "screen_y": 111.41683197021484, "width": 55.90815734863281, "height": 41.759376525878906, "north_disp": 0, "east_disp": 0, "latitude": 37.9373659, "longitude": -122.4726188}, {"screen_x": 678.8284301757812, "screen_y": 280.27838134765625, "width": 83.02694702148438, "height": 100.1336441040039, "north_disp": -23.78219653587687, "east_disp": 40.141663107058186, "latitude": 37.937152021568195, "longitude": -122.4721610717249}, {"screen_x": 620.8997802734375, "screen_y": 166.25376892089844, "width": 90.06491088867188, "height": 64.59260559082031, "north_disp": 0, "east_disp": 0, "latitude": 37.9373659, "longitude": -122.4726188}, {"screen_x": 421.0698547363281, "screen_y": 77.57567596435547, "width": 39.206146240234375, "height": 34.863338470458984, "north_disp": 0, "east_disp": 0, "latitude": 37.9373659, "longitude": -122.4726188}, {"screen_x": 371.70721435546875, "screen_y": 81.05085754394531, "width": 59.036582946777344, "height": 54.428131103515625, "north_disp": 0, "east_disp": 0, "latitude": 37.9373659, "longitude": -122.4726188}, {"screen_x": 279.4233703613281, "screen_y": 67.149169921875, "width": 30.82036781311035, "height": 23.47152328491211, "north_disp": 0, "east_disp": 0, "latitude": 37.9373659, "longitude": -122.4726188}, {"screen_x": 310.63446044921875, "screen_y": 18.167940139770508, "width": 39.09121322631836, "height": 22.86317253112793, "north_disp": 0, "east_disp": 0, "latitude": 37.9373659, "longitude": -122.4726188}]}'
-    var image_json = JSON.parse(json);
+    });
+  }
 
-    var array = [];
-    image_json.detections.map(function(item, i) {
-      item.name = "Car " + i;
-      item.id = i;
-      array.push(item);
-    });
-    this.setState({
-      detections: array
-    });
+  handleData(data) {
+    console.log(data);
+    if(document != null && document.getElementById('my_table') != null) {
+
+    } 
   }
 
   componentWillUnmount() {
@@ -146,18 +108,28 @@ class DetailComponent extends React.Component {
 
     const title_style ={
       fontSize: '30px',
+      marginTop: margin_style.marginTop,
+      marginLeft: margin_style.marginLeft,
+      marginRight: margin_style.marginRight,
+      marginBottom: margin_style.marginBottom
     }
 
+    const img_style = {
+      height: "300px", 
+      width: '400px'
+    }
     return (
-      <div style = {margin_style}>
+      
+      <div>
+        <TopBar />
         <div style = {title_style}>E580 Lower Deck Pier RealTime</div>
-        <div class="row" style = {{marginTop:"1.5%"}}>
+        <div class="row" style ={margin_style}>
           <div class="col">
-            <img id="img" class="img-fluid" ></img>
+            <img id="img" style={img_style} ></img>
           </div>
           <div class="col" > 
             <Paper>
-              <Table>
+              <Table id='my_table'>
                 <TableHead>
                   <TableRow>
                     <TableCell>Car</TableCell>
@@ -171,8 +143,8 @@ class DetailComponent extends React.Component {
                       <TableCell component="th" scope="row">
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.latitude}</TableCell>
-                      <TableCell align="right">{row.longitude}</TableCell>
+                      <TableCell align="right">{row.latitude.toFixed(4)}</TableCell>
+                      <TableCell align="right">{row.longitude.toFixed(4)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
